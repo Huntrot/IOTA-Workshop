@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Hash Proof dApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .wallet-section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .connected {
+            color: green;
+        }
+        .disconnected {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Hash Proof dApp</h1>
+    
+    <div class="wallet-section">
+        <h2>Wallet Connection</h2>
+        <div id="wallet-status" class="disconnected">
+            <p>Status: Disconnected</p>
+            <button onclick="connectWallet()">Connect IOTA Wallet</button>
+        </div>
+    </div>
+
+    <div class="wallet-section" id="contract-section" style="display: none;">
+        <h2>Order Hash Proof Contract</h2>
+        <p>Contract Address: <span id="contract-address">Loading...</span></p>
+        
+        <div>
+            <h3>Create Order Hash</h3>
+            <input type="text" id="order-data" placeholder="Enter order data" style="width: 300px; padding: 8px;">
+            <button onclick="createOrderHash()">Create Hash</button>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <h3>Verify Order Hash</h3>
+            <input type="text" id="hash-to-verify" placeholder="Enter hash to verify" style="width: 300px; padding: 8px;">
+            <button onclick="verifyOrderHash()">Verify Hash</button>
+        </div>
+        
+        <div id="result" style="margin-top: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 4px;">
+            Results will appear here...
+        </div>
+    </div>
+
+    <script>
+        // Simple wallet connection simulation
+        let isConnected = false;
+        let walletAddress = null;
+
+        function connectWallet() {
+            // Simulate wallet connection
+            isConnected = true;
+            walletAddress = "0x" + Math.random().toString(16).substr(2, 40);
+            
+            updateWalletStatus();
+            document.getElementById('contract-section').style.display = 'block';
+        }
+
+        function disconnectWallet() {
+            isConnected = false;
+            walletAddress = null;
+            updateWalletStatus();
+            document.getElementById('contract-section').style.display = 'none';
+        }
+
+        function updateWalletStatus() {
+            const statusDiv = document.getElementById('wallet-status');
+            
+            if (isConnected) {
+                statusDiv.className = 'connected';
+                statusDiv.innerHTML = `
+                    <p>Status: Connected</p>
+                    <p><strong>Address:</strong> ${walletAddress}</p>
+                    <button onclick="disconnectWallet()">Disconnect Wallet</button>
+                `;
+            } else {
+                statusDiv.className = 'disconnected';
+                statusDiv.innerHTML = `
+                    <p>Status: Disconnected</p>
+                    <button onclick="connectWallet()">Connect IOTA Wallet</button>
+                `;
+            }
+        }
+
+        function createOrderHash() {
+            const orderData = document.getElementById('order-data').value;
+            if (!orderData) {
+                alert('Please enter order data');
+                return;
+            }
+
+            // Simulate hash creation
+            const hash = "0x" + btoa(orderData).replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            
+            document.getElementById('result').innerHTML = `
+                <h4>Order Hash Created:</h4>
+                <p><strong>Original Data:</strong> ${orderData}</p>
+                <p><strong>Hash:</strong> ${hash}</p>
+                <p><em>Note: This is a simulation. In production, this would interact with your Move contract.</em></p>
+            `;
+        }
+
+        function verifyOrderHash() {
+            const hashToVerify = document.getElementById('hash-to-verify').value;
+            if (!hashToVerify) {
+                alert('Please enter a hash to verify');
+                return;
+            }
+
+            // Simulate verification
+            const isValid = hashToVerify.startsWith('0x') && hashToVerify.length > 10;
+            
+            document.getElementById('result').innerHTML = `
+                <h4>Hash Verification Result:</h4>
+                <p><strong>Hash:</strong> ${hashToVerify}</p>
+                <p><strong>Status:</strong> ${isValid ? '✅ Valid' : '❌ Invalid'}</p>
+                <p><em>Note: This is a simulation. In production, this would query your Move contract.</em></p>
+            `;
+        }
+
+        // Initialize
+        document.getElementById('contract-address').textContent = 'Will be loaded from Move.toml';
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+[package]
+name = "orderHashProof"
+edition = "2024"
+
+[addresses]
+orderhashproof = "0x0"
