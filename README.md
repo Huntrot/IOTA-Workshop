@@ -106,5 +106,5 @@ React app using IOTA dApp Kit to:
 - Transparent data on blockchain
 - Proof-of-existence for orders
 
-https://explorer.iota.org/object/0x80653d7645baead1838f89e2dfb3833848fd0fc8d9b38eda4fbe33fb2a709506?network=testnet
-<img width="745" height="431" alt="image" src="https://github.com/user-attachments/assets/e44546e9-83a7-471b-bb73-1749060c593a" />
+https://explorer.iota.org/object/0xdd9eb0396f856baca0b2a1fbe4c047cd4038f76a9eacdf5e028a5d2956139b4a?network=testnet
+<img width="737" height="436" alt="image" src="https://github.com/user-attachments/assets/6e28ed03-79e4-43de-828a-0c4abb5d266e" />
